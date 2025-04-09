@@ -11,15 +11,15 @@ use App\Core\ValueObject\CreditCardValueObject;
 use DateTime;
 use Ramsey\Uuid\Uuid;
 
-class InvoiceDomain
+final class InvoiceDomain
 {
     public function __construct(
-        public string $accountId,
-        public InvoiceStatusEnum $status,
-        public string $description,
-        public string $type,
-        public string $cardLastDigits,
-        public float $amount,
+        protected(set) string $accountId,
+        protected(set) InvoiceStatusEnum $status,
+        protected(set) string $description,
+        protected(set) string $type,
+        protected(set) string $cardLastDigits,
+        protected(set) float $amount,
         protected(set) ?string $id = null,
         protected(set) ?DateTime $createdAt = null,
     ) {
@@ -45,13 +45,13 @@ class InvoiceDomain
     ): self {
         $status = InvoiceStatusEnum::Pending;
 
-        if($amount < 1000){
-            $status = random_int(0,10) > 10
+        if ($amount < 1000) {
+            $status = random_int(0, 10) > 10
                 ? InvoiceStatusEnum::Approved
                 : InvoiceStatusEnum::Rejected;
         }
 
-        $cardLastDigits = substr($cardValue->number, -4);
+        $cardLastDigits = mb_substr($cardValue->number, -4);
 
         return new self(
             accountId: $accountId,
@@ -65,7 +65,7 @@ class InvoiceDomain
 
     public function approved(): void
     {
-        if($this->status !== InvoiceStatusEnum::Pending){
+        if (InvoiceStatusEnum::Pending !== $this->status) {
             throw new InvalidStatusException('Transaction already processed');
         }
 
@@ -74,7 +74,7 @@ class InvoiceDomain
 
     public function rejected(): void
     {
-        if($this->status !== InvoiceStatusEnum::Pending){
+        if (InvoiceStatusEnum::Pending !== $this->status) {
             throw new InvalidStatusException('Transaction already processed');
         }
 

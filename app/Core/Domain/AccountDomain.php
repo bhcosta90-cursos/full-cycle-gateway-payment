@@ -10,12 +10,13 @@ use Ramsey\Uuid\Uuid;
 final class AccountDomain
 {
     public function __construct(
-        protected(set) string $name,
-        protected(set) string $email,
-        protected(set) ?string $apiKey = null,
-        protected(set) int $balance = 0,
-        protected(set) ?string $id = null,
-        protected(set) ?DateTime $createdAt = null,
+        protected(set) string $name, // php-cs-fixer-ignore
+        protected(set) string $email, // php-cs-fixer-ignore
+        protected(set) ?string $apiKey = null, // php-cs-fixer-ignore
+        protected(set) int $balance = 0, // php-cs-fixer-ignore
+        protected(set) ?string $id = null, // php-cs-fixer-ignore
+        protected(set) ?DateTime $createdAt = null, // php-cs-fixer-ignore
+
     ) {
         if (empty($this->apiKey)) {
             $this->apiKey = mb_strtoupper('api_key_' . md5(Uuid::uuid7()->toString()));
