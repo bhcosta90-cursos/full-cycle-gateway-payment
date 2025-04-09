@@ -7,7 +7,7 @@ namespace App\Core\UseCase\Invoice;
 use App\Core\Exception\NotFoundException;
 use App\Core\Repository\AccountRepositoryInterface;
 use App\Core\Repository\InvoiceRepositoryInterface;
-use App\Core\UseCase\Invoice\Data\FindByIdInput;
+use App\Core\UseCase\Invoice\Data\FindByAccountInput;
 use App\Core\UseCase\Invoice\Data\InvoiceOutput;
 
 final readonly class FindByIdUseCase
@@ -19,7 +19,7 @@ final readonly class FindByIdUseCase
         //
     }
 
-    public function handle(FindByIdInput $input): InvoiceOutput
+    public function handle(FindByAccountInput $input): InvoiceOutput
     {
         if (!($invoiceDomain = $this->invoiceRepository->findById($input->id))) {
             throw new NotFoundException('Invoice not found');

@@ -15,7 +15,6 @@ final class ApiKeyMiddleware
 {
     public function __construct(protected FindByApiKeyUseCase $useCase)
     {
-
     }
 
     public function handle(Request $request, Closure $next)
