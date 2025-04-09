@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace App\Providers;
 
 use App\Core\Repository as RepositoryInterface;
-use App\Repository;
+use App\Repository as RepositoryEloquent;
 use Illuminate\Support\ServiceProvider;
 
 final class AppServiceProvider extends ServiceProvider
@@ -14,12 +14,12 @@ final class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(
             RepositoryInterface\AccountRepositoryInterface::class,
-            Repository\AccountRepository::class
+            RepositoryEloquent\AccountRepository::class
         );
 
         $this->app->singleton(
             RepositoryInterface\InvoiceRepositoryInterface::class,
-            Repository\InvoiceRepository::class
+            RepositoryEloquent\InvoiceRepository::class
         );
     }
 
