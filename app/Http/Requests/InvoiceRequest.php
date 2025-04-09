@@ -11,12 +11,13 @@ final class InvoiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'account_id'       => ['required', 'exists:accounts'],
-            'status'           => ['required', 'integer'],
-            'description'      => ['required'],
-            'type'             => ['required'],
-            'card_last_digits' => ['required'],
-            'amount'           => ['required', 'integer'],
+            'description'        => ['required', 'max:100'],
+            'amount'             => ['required', 'integer', 'min:0'],
+            'credit_card.number' => ['required', 'string', 'max:20'],
+            'credit_card.cvv'    => ['required', 'string', 'max:5'],
+            'credit_card.name'   => ['required', 'string', 'max:100'],
+            'credit_card.month'  => ['required', 'date_format:m'],
+            'credit_card.year'   => ['required', 'date_format:Y'],
         ];
     }
 

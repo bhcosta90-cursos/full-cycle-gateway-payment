@@ -4,38 +4,24 @@ declare(strict_types = 1);
 
 namespace App\Http\Controllers;
 
+use App\Core\UseCase\Invoice\CreateInvoiceUseCase;
+use App\Core\UseCase\Invoice\Data\CreateInvoiceInput;
 use App\Http\Requests\InvoiceRequest;
-use App\Http\Resources\InvoiceResource;
-use App\Models\Invoice;
 
 final class InvoiceController
 {
-    public function index()
+    public function store(InvoiceRequest $invoiceRequest, CreateInvoiceUseCase $useCase): array
     {
-        return InvoiceResource::collection(Invoice::all());
-    }
-
-    public function store(InvoiceRequest $request)
-    {
-        return new InvoiceResource(Invoice::create($request->validated()));
-    }
-
-    public function show(Invoice $invoice)
-    {
-        return new InvoiceResource($invoice);
-    }
-
-    public function update(InvoiceRequest $request, Invoice $invoice)
-    {
-        $invoice->update($request->validated());
-
-        return new InvoiceResource($invoice);
-    }
-
-    public function destroy(Invoice $invoice)
-    {
-        $invoice->delete();
-
-        return response()->json();
+        return (array) $useCase->handle(new CreateInvoiceInput(
+            apiKey: auth()->user()->api_key,
+            amount: $invoiceRequest->amount,
+            description: $invoiceRequest->description,
+            type: 'credit-card',
+            cardNumber: $invoiceRequest->credit_card->number,
+            cardCvv: $invoiceRequest->credit_card->cvv,
+            cardHolderName: $invoiceRequest->credit_card->name,
+            cardExpiredMonth: $invoiceRequest->credit_card->month,
+            cardExpiredYear: $invoiceRequest->credit_card->year,
+        ));
     }
 }
