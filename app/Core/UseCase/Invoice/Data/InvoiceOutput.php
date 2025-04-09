@@ -14,7 +14,6 @@ final readonly class InvoiceOutput
         public string $type,
         public string $cardLastDigits,
         public string $createdAt,
-        public string $updatedAt,
     ) {
         //
     }
