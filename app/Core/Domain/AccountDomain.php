@@ -16,7 +16,6 @@ final class AccountDomain
         protected(set) int $balance = 0,
         protected(set) ?string $id = null,
         protected(set) ?DateTime $createdAt = null,
-        protected(set) ?DateTime $updatedAt = null,
     ) {
         if (empty($this->apiKey)) {
             $this->apiKey = mb_strtoupper('api_key_' . md5(Uuid::uuid7()->toString()));

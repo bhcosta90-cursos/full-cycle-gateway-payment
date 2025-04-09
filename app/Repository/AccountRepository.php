@@ -12,21 +12,19 @@ use Illuminate\Support\Facades\DB;
 
 class AccountRepository implements AccountRepositoryInterface
 {
-    protected Model $model;
-
-    public function __construct()
+    public function __construct(protected Account $model)
     {
-        $this->model = new Account();
+        //
     }
 
-    public function create(AccountDomain $accountDomain): AccountDomain
+    public function create(AccountDomain $invoiceDomain): AccountDomain
     {
         $result = $this->model->create([
-            'id'      => $accountDomain->id,
-            'name'    => $accountDomain->name,
-            'email'   => $accountDomain->email,
-            'api_key' => $accountDomain->apiKey,
-            'balance' => $accountDomain->balance,
+            'id'      => $invoiceDomain->id,
+            'name'    => $invoiceDomain->name,
+            'email'   => $invoiceDomain->email,
+            'api_key' => $invoiceDomain->apiKey,
+            'balance' => $invoiceDomain->balance,
         ]);
 
         return $this->converteDomain($result);
@@ -79,7 +77,6 @@ class AccountRepository implements AccountRepositoryInterface
                 balance: $data->balance,
                 id: $data->id,
                 createdAt: $data->created_at,
-                updatedAt: $data->updated_at,
             );
         }
 

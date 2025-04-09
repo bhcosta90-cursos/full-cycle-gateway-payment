@@ -8,7 +8,7 @@ use App\Core\Domain\AccountDomain;
 
 interface AccountRepositoryInterface
 {
-    public function create(AccountDomain $accountDomain): AccountDomain;
+    public function create(AccountDomain $invoiceDomain): AccountDomain;
 
     public function updateBalance(AccountDomain $accountDomain): AccountDomain;
 

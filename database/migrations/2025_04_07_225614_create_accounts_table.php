@@ -16,6 +16,7 @@ return new class () extends Migration {
             $table->string('api_key');
             $table->unsignedBigInteger('balance');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
