@@ -12,9 +12,6 @@ interface InvoiceRepositoryInterface
 
     public function updateStatus(InvoiceDomain $invoiceDomain): InvoiceDomain;
 
-    /**
-     * @return InvoiceDomain[]
-     */
     public function findByAccountId(string $accountId): array;
 
     public function findById(string $id): ?InvoiceDomain;

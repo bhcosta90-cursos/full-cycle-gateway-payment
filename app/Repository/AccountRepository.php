@@ -30,9 +30,6 @@ final readonly class AccountRepository implements AccountRepositoryInterface
         return $this->converteDomain($result);
     }
 
-    /**
-     * @throws Throwable
-     */
     public function updateBalance(AccountDomain $accountDomain, float $value): AccountDomain
     {
         try {

@@ -32,9 +32,6 @@ final readonly class InvoiceRepository implements InvoiceRepositoryInterface
         return $this->converteDomain($result);
     }
 
-    /**
-     * @throws Throwable
-     */
     public function updateStatus(InvoiceDomain $invoiceDomain): InvoiceDomain
     {
         try {
