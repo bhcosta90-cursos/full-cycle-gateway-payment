@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace App\Core\Domain;
 
-use App\Core\Enum\Invoice\TransactionStatusEnum;
+use App\Core\Enum\Invoice\InvoiceStatusEnum;
 use App\Core\Exception\InvalidAmountException;
 use App\Core\Exception\InvalidStatusException;
 use App\Core\ValueObject\CreditCardValueObject;
@@ -15,7 +15,7 @@ class InvoiceDomain
 {
     public function __construct(
         public string $accountId,
-        public TransactionStatusEnum $status,
+        public InvoiceStatusEnum $status,
         public string $description,
         public string $type,
         public string $cardLastDigits,
@@ -43,12 +43,12 @@ class InvoiceDomain
         CreditCardValueObject $cardValue,
         float $amount,
     ): self {
-        $status = TransactionStatusEnum::Pending;
+        $status = InvoiceStatusEnum::Pending;
 
         if($amount < 1000){
             $status = random_int(0,10) > 10
-                ? TransactionStatusEnum::Approved
-                : TransactionStatusEnum::Rejected;
+                ? InvoiceStatusEnum::Approved
+                : InvoiceStatusEnum::Rejected;
         }
 
         $cardLastDigits = substr($cardValue->number, -4);
@@ -65,19 +65,19 @@ class InvoiceDomain
 
     public function approved(): void
     {
-        if($this->status !== TransactionStatusEnum::Pending){
+        if($this->status !== InvoiceStatusEnum::Pending){
             throw new InvalidStatusException('Transaction already processed');
         }
 
-        $this->status = TransactionStatusEnum::Approved;
+        $this->status = InvoiceStatusEnum::Approved;
     }
 
     public function rejected(): void
     {
-        if($this->status !== TransactionStatusEnum::Pending){
+        if($this->status !== InvoiceStatusEnum::Pending){
             throw new InvalidStatusException('Transaction already processed');
         }
 
-        $this->status = TransactionStatusEnum::Rejected;
+        $this->status = InvoiceStatusEnum::Rejected;
     }
 }

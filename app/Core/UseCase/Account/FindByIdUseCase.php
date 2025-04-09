@@ -9,7 +9,7 @@ use App\Core\Repository\AccountRepositoryInterface;
 use App\Core\UseCase\Account\Data\AccountOutput;
 use App\Core\UseCase\Account\Data\FindByIdInput;
 
-readonly class FindByIdUseCase
+final readonly class FindByIdUseCase
 {
     public function __construct(protected AccountRepositoryInterface $accountRepository)
     {

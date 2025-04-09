@@ -9,7 +9,7 @@ use App\Core\Repository\AccountRepositoryInterface;
 use App\Core\UseCase\Account\Data\AccountOutput;
 use App\Core\UseCase\Account\Data\FindByApiKeyInput;
 
-readonly class FindByApiKeyUseCase
+final readonly class FindByApiKeyUseCase
 {
     public function __construct(protected AccountRepositoryInterface $accountRepository)
     {

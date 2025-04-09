@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\InvoiceRequest;
 use App\Http\Resources\InvoiceResource;
 use App\Models\Invoice;
 
-class InvoiceController
+final class InvoiceController
 {
     public function index()
     {

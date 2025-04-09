@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace App\Core\UseCase\Invoice\Data;
 
-readonly class CreateInvoiceInput
+final readonly class CreateInvoiceInput
 {
     public function __construct(
         public string $apiKey,

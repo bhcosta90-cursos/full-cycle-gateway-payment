@@ -4,6 +4,6 @@ declare(strict_types = 1);
 
 namespace App\Core\Exception;
 
-class InvalidAmountException extends BaseException
+final class InvalidAmountException extends BaseException
 {
 }

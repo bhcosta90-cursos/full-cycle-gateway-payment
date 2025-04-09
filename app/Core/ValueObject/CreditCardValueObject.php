@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace App\Core\ValueObject;
 
-readonly class CreditCardValueObject
+final readonly class CreditCardValueObject
 {
     public function __construct(
         protected(set) string $number,

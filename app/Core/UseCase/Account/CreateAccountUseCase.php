@@ -10,7 +10,7 @@ use App\Core\Repository\AccountRepositoryInterface;
 use App\Core\UseCase\Account\Data\AccountCreateInput;
 use App\Core\UseCase\Account\Data\AccountOutput;
 
-readonly class CreateAccountUseCase
+final readonly class CreateAccountUseCase
 {
     public function __construct(protected AccountRepositoryInterface $accountRepository)
     {

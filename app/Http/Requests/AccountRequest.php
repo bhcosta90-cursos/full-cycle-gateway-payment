@@ -6,7 +6,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AccountRequest extends FormRequest
+final class AccountRequest extends FormRequest
 {
     public function rules(): array
     {

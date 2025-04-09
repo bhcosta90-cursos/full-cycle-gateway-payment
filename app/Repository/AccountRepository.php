@@ -7,10 +7,10 @@ namespace App\Repository;
 use App\Core\Domain\AccountDomain;
 use App\Core\Repository\AccountRepositoryInterface;
 use App\Models\Account;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
-class AccountRepository implements AccountRepositoryInterface
+final class AccountRepository implements AccountRepositoryInterface
 {
     public function __construct(protected Account $model)
     {
@@ -31,9 +31,9 @@ class AccountRepository implements AccountRepositoryInterface
     }
 
     /**
-     * @throws \Throwable
+     * @throws Throwable
      */
-    public function updateBalance(AccountDomain $accountDomain): AccountDomain
+    public function updateBalance(AccountDomain $accountDomain, float $value): AccountDomain
     {
         try {
             DB::beginTransaction();
@@ -44,13 +44,13 @@ class AccountRepository implements AccountRepositoryInterface
                 ->first();
 
             $result->update([
-                'balance' => $accountDomain->balance,
+                'balance' => $accountDomain->balance + $value,
             ]);
 
             DB::commit();
 
             return $this->converteDomain($result->refresh());
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             DB::rollBack();
 
             throw $exception;
@@ -67,7 +67,7 @@ class AccountRepository implements AccountRepositoryInterface
         return $this->converteDomain($this->model->whereId($id)->first());
     }
 
-    protected function converteDomain(?object $data): ?AccountDomain
+    private function converteDomain(?object $data): ?AccountDomain
     {
         if ($data) {
             return new AccountDomain(

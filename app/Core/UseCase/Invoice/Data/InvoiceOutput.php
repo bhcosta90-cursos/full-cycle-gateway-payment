@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace App\Core\UseCase\Invoice\Data;
 
-readonly class TransactionOutput
+final readonly class InvoiceOutput
 {
     public function __construct(
         public string $id,

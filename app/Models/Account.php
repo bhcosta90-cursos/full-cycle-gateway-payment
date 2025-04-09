@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User;
 
-class Account extends User
+final class Account extends User
 {
-    use HasUuids, SoftDeletes;
+    use HasUuids;
+    use SoftDeletes;
 
     protected $fillable = [
         'id',

@@ -4,15 +4,14 @@ declare(strict_types = 1);
 
 namespace App\Models;
 
-use App\Core\Enum\Invoice\TransactionStatusEnum;
-use Illuminate\Database\Eloquent\Attributes\Scope;
+use App\Core\Enum\Invoice\InvoiceStatusEnum;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Invoice extends Model
+final class Invoice extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -27,7 +26,7 @@ class Invoice extends Model
     ];
 
     protected $casts = [
-        'status' => TransactionStatusEnum::class,
+        'status' => InvoiceStatusEnum::class,
     ];
 
     public function account(): BelongsTo

@@ -8,8 +8,9 @@ use App\Core\Domain\InvoiceDomain;
 use App\Core\Repository\InvoiceRepositoryInterface;
 use App\Models\Invoice;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
-class InvoiceRepository implements InvoiceRepositoryInterface
+final class InvoiceRepository implements InvoiceRepositoryInterface
 {
     public function __construct(protected Invoice $model)
     {
@@ -30,7 +31,7 @@ class InvoiceRepository implements InvoiceRepositoryInterface
     }
 
     /**
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function updateStatus(InvoiceDomain $invoiceDomain): InvoiceDomain
     {
@@ -47,7 +48,7 @@ class InvoiceRepository implements InvoiceRepositoryInterface
             DB::commit();
 
             return $this->converteDomain($result->refresh());
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             DB::rollBack();
 
             throw $exception;
@@ -68,7 +69,7 @@ class InvoiceRepository implements InvoiceRepositoryInterface
         return $this->converteDomain($this->model->whereId($id)->first());
     }
 
-    protected function converteDomain(?object $data): ?InvoiceDomain
+    private function converteDomain(?object $data): ?InvoiceDomain
     {
         if ($data) {
             return new InvoiceDomain(

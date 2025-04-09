@@ -10,7 +10,7 @@ use App\Core\UseCase\Account\Data\FindByApiKeyInput;
 use App\Core\UseCase\Account\FindByApiKeyUseCase;
 use App\Http\Requests\AccountRequest;
 
-class AccountController
+final class AccountController
 {
     public function index(FindByApiKeyUseCase $useCase): array
     {
