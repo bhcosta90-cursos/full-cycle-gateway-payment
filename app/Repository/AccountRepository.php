@@ -10,7 +10,7 @@ use App\Models\Account;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
-final class AccountRepository implements AccountRepositoryInterface
+final readonly class AccountRepository implements AccountRepositoryInterface
 {
     public function __construct(protected Account $model)
     {

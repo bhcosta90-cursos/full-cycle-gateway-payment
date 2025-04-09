@@ -10,7 +10,7 @@ use App\Models\Invoice;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
-final class InvoiceRepository implements InvoiceRepositoryInterface
+final readonly class InvoiceRepository implements InvoiceRepositoryInterface
 {
     public function __construct(protected Invoice $model)
     {
@@ -20,11 +20,13 @@ final class InvoiceRepository implements InvoiceRepositoryInterface
     public function create(InvoiceDomain $invoiceDomain): InvoiceDomain
     {
         $result = $this->model->create([
-            'id'      => $invoiceDomain->id,
-            'name'    => $invoiceDomain->name,
-            'email'   => $invoiceDomain->email,
-            'api_key' => $invoiceDomain->apiKey,
-            'balance' => $invoiceDomain->balance,
+            'id'               => $invoiceDomain->id,
+            'account_id'       => $invoiceDomain->accountId,
+            'status'           => $invoiceDomain->status,
+            'description'      => $invoiceDomain->description,
+            'type'             => $invoiceDomain->type,
+            'card_last_digits' => $invoiceDomain->cardLastDigits,
+            'amount'           => $invoiceDomain->amount,
         ]);
 
         return $this->converteDomain($result);
