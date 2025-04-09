@@ -13,7 +13,7 @@ final class AccountDomain
         protected(set) string $name,
         protected(set) string $email,
         protected(set) ?string $apiKey = null,
-        protected(set) int $balance= 0,
+        protected(set) int $balance = 0,
         protected(set) ?string $id = null,
         protected(set) ?DateTime $createdAt = null,
     ) {
